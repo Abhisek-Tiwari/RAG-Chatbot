@@ -27,7 +27,7 @@ def create_rag_chain(csv_path: str):
     # Making embeddings and storing them in VectorDatabase
     embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
     vectorstore = FAISS.from_documents(docs, embeddings)
-    retriever = vectorstore.as_retriever()
+    retriever = vectorstore.as_retriever(search_kwargs={"k": 1})
 
     # Using a small open-source LLM
     qa_pipeline = pipeline(
