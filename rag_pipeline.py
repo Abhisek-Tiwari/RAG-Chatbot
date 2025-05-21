@@ -4,6 +4,7 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.document_loaders import DataFrameLoader
 from langchain.chains import RetrievalQA
 from langchain_huggingface.llms import HuggingFacePipeline
+from langchain.prompts import PromptTemplate
 
 import pandas as pd
 from transformers import pipeline
