@@ -39,10 +39,23 @@ def create_rag_chain(csv_path: str):
     # Making LLM pipeline
     llm = HuggingFacePipeline(pipeline=qa_pipeline)
 
+    prompt_template = PromptTemplate.from_template("""
+    Use the following context to answer the question. 
+    If you don't know the answer, say "I don't know". 
+    Don't make anything up.
+    
+    Context:
+    {context}
+    
+    Question: {question}
+    Answer:
+    """)
+
     # Making a Final QA chain to pass queries
     qa_chain = RetrievalQA.from_chain_type(
         llm=llm,
         retriever=retriever,
+        chain_type_kwargs={"prompt": prompt_template},
         return_source_documents=True
     )
 
